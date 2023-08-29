@@ -1,0 +1,45 @@
+package Models;
+
+import java.util.UUID;
+
+public class Pessoa {
+
+    public Pessoa(String nome, String documento) {
+        this.nome = nome;
+        this.documento = documento;
+        this.id = UUID.randomUUID();
+    }
+    
+    private UUID id;
+    private String nome;
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getDocumento() {
+        return documento;
+    }
+
+    public void setDocumento(String documento) {
+        this.documento = documento;
+    }
+    private String documento;
+    
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+  
+    public boolean validaDocumento(String documento){
+        return true;
+    }
+    
+}
