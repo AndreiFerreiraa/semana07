@@ -11,8 +11,21 @@ public class Conta {
         this.saldo = 0.0;
         this.numero = this.gerarNumeroConta();
     }
+
+    public Conta(UUID id, int numero, double saldo, Pessoa titular) {
+        this.id = id;
+        this.numero = numero;
+        this.saldo = saldo;
+        this.titular = titular;
+    }
+    
+    
     
     private UUID id;
+
+    public UUID getId() {
+        return id;
+    }
     private int numero;
     double saldo;
     private Pessoa titular;
