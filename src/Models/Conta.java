@@ -2,34 +2,42 @@ package Models;
 
 import java.util.Random;
 import java.util.UUID;
+import org.mindrot.jbcrypt.BCrypt;
 
 public class Conta {
 
-    public Conta(Pessoa titular) {
+    public Conta(Pessoa titular, String senha) {
         this.id = UUID.randomUUID();
         this.titular = titular;
         this.saldo = 0.0;
         this.numero = this.gerarNumeroConta();
+        this.senha = BCrypt.hashpw(senha,BCrypt.gensalt());
     }
 
-    public Conta(UUID id, int numero, double saldo, Pessoa titular) {
+    public Conta(UUID id, int numero, double saldo, Pessoa titular, String senha) {
         this.id = id;
         this.numero = numero;
         this.saldo = saldo;
         this.titular = titular;
+        this.senha = senha;
     }
     
     
     
     private UUID id;
-
-    public UUID getId() {
-        return id;
-    }
+    private String senha;
     private int numero;
     double saldo;
     private Pessoa titular;
 
+    
+    public String getSenha(){
+        return senha;
+    }
+    
+    public UUID getId() {
+        return id;
+    }
     public int getNumero() {
         return numero;
     }
@@ -56,6 +64,11 @@ public class Conta {
         destinatario.saldo += valor;
 
     }
+    
+    public boolean validaSenha(String senha){
+        return BCrypt.checkpw(senha, this.senha);
+    }
+    
 
     private int gerarNumeroConta() {
         Random random = new Random();

@@ -49,6 +49,10 @@ public class Gerente extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         criaConta = new javax.swing.JButton();
         voltaCliente = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        senhaP = new javax.swing.JPasswordField();
+        senhaC = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -111,6 +115,27 @@ public class Gerente extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Felix Titling", 1, 14)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        jLabel2.setText("Senha");
+
+        jLabel3.setFont(new java.awt.Font("Felix Titling", 1, 14)); // NOI18N
+        jLabel3.setText("Confirmação Senha");
+
+        senhaP.setText("jPasswordField1");
+        senhaP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                senhaPActionPerformed(evt);
+            }
+        });
+
+        senhaC.setText("jPasswordField2");
+        senhaC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                senhaCActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -136,19 +161,31 @@ public class Gerente extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(contaSalario))
                             .addComponent(contaCorrente, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cpfCnpj)
-                                    .addComponent(digPfPj, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tipoTitular, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(cpfCnpj)
+                                        .addComponent(digPfPj, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(tipoTitular, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel2)
+                                    .addGap(181, 181, 181)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(senhaC)))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(18, 18, 18))
             .addGroup(layout.createSequentialGroup()
-                .addGap(73, 73, 73)
-                .addComponent(criaConta, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(73, 73, 73)
+                        .addComponent(criaConta, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(senhaP, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -173,7 +210,15 @@ public class Gerente extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(digPfPj, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tipoTitular, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(senhaC, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
+                    .addComponent(senhaP))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -197,6 +242,15 @@ public class Gerente extends javax.swing.JFrame {
         String nome = this.digTitular.getText();
         String cpfOuCnpj = this.digPfPj.getText();
         String tipoPessoa = (String) this.tipoTitular.getSelectedItem(); 
+        String senha = new String (this.senhaP.getPassword());
+        String SenhaC = new String (this.senhaC.getPassword());
+        
+        
+         if(!senha.equals(SenhaC)){
+             JOptionPane.showMessageDialog(this," Senha invalida! Digite novamente" );
+             return;
+         }
+         
         
         // CHAMA QUEM CRIA TITULAR
         Pessoa titular = pessoaController.criarPessoa(nome, cpfOuCnpj, tipoPessoa);
@@ -207,7 +261,7 @@ public class Gerente extends javax.swing.JFrame {
         boolean salario = this.contaSalario.isSelected();     
         
         // CHAMA QUEM CRIA CONTA
-        int numeroConta = contaController.criarConta(titular, corrente, poupanca, salario);
+        int numeroConta = contaController.criarConta(titular, corrente, poupanca, salario, senha);
             
         JOptionPane.showMessageDialog(this, "Sua conta foi criada com sucesso. O número dela é: " + numeroConta);
         limparCampos();
@@ -227,6 +281,14 @@ public class Gerente extends javax.swing.JFrame {
       new Cliente().setVisible(true);
     }//GEN-LAST:event_voltaClienteActionPerformed
 
+    private void senhaPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_senhaPActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_senhaPActionPerformed
+
+    private void senhaCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_senhaCActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_senhaCActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JRadioButton contaCorrente;
@@ -237,9 +299,13 @@ public class Gerente extends javax.swing.JFrame {
     private javax.swing.JTextField digPfPj;
     private javax.swing.JTextField digTitular;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel nmTitular;
+    private javax.swing.JPasswordField senhaC;
+    private javax.swing.JPasswordField senhaP;
     private javax.swing.JComboBox<String> tipoTitular;
     private javax.swing.JButton voltaCliente;
     // End of variables declaration//GEN-END:variables

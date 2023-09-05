@@ -157,13 +157,23 @@ public class Cliente extends javax.swing.JFrame {
         do {
             String doc = JOptionPane.showInputDialog("Informe seu documento (CPF/CNPJ)");
             conta = contaController.buscarContaPorDocumentoTitular(doc);
-        } while (conta == null);
-
+            if(conta != null){
+                boolean senhaValida = false;
+                do {
+                    String senha = JOptionPane.showInputDialog("informe sua senha: ");
+                    senhaValida = conta.validaSenha(senha);
+                    if(senhaValida == false){
+                        JOptionPane.showInputDialog("senha incorreta");
+                    }
+                }while (senhaValida == false);
+            } 
+        }while (conta == null);
+        
         this.numeroConta.setText(String.valueOf(conta.getNumero()));
         this.nomeTitular.setText(conta.getTitular().getNome());
         this.saldo.setText("R$ " + String.valueOf(conta.getSaldo()));
-    }
-     
+        
+    }      
     
     private void cliDepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cliDepActionPerformed
         String valor = JOptionPane.showInputDialog("INFORME O VALOR DO DEPÓSITO.");
@@ -193,7 +203,10 @@ public class Cliente extends javax.swing.JFrame {
     }//GEN-LAST:event_cliSacarActionPerformed
 
     private void cliExtrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cliExtrActionPerformed
-        
+        System.out.println("\tEXTRATO");
+        System.out.println("Nome: " + this.nomeTitular);
+        System.out.println("Número da conta: " + this.numeroConta);
+        System.out.printf("Saldo atual: %.2f\n",this.saldo);
     }//GEN-LAST:event_cliExtrActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

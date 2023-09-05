@@ -1,35 +1,31 @@
 package Controllers;
 
-import DAO.postgres.ContaDAOPostegres;
+import static Factory.FactoryDAO.makeContaDAO;
 import Models.Conta;
 import Models.ContaCorrente;
 import Models.ContaPoupanca;
 import Models.ContaSalario;
 import Models.Pessoa;
-import Models.PessoaFisica;
-import Models.PessoaJuridica;
-import Util.GerenciadorConexao;
 import javax.swing.JOptionPane;
 import opp.Opp;
 
 public class ContaController {
 
-    public int criarConta(Pessoa titular, boolean corrente, boolean poupanca, boolean salario) {
-        Conta conta = corrente ? new ContaCorrente(titular) : poupanca ? new ContaPoupanca(titular) : new ContaSalario(titular);
-        new ContaDAOPostegres(GerenciadorConexao.getConexao()).insereConta(conta);
+    public int criarConta(Pessoa titular, boolean corrente, boolean poupanca, boolean salario, String senha) {
+        Conta conta = corrente ? new ContaCorrente(titular, senha) : poupanca ? new ContaPoupanca(titular, senha) : new ContaSalario(titular, senha);
+        makeContaDAO().insereConta(conta);
         return conta.getNumero();
     }
 
     public Conta buscarContaPorDocumentoTitular(String documento) {
-       
-        return new ContaDAOPostegres(GerenciadorConexao.getConexao()).buscarContaPorDocumentoTitular(documento);
+        return makeContaDAO().buscarContaPorDocumentoTitular(documento);
     }
-    
+
     public Conta buscarPorNumero(int numero) {
         for (Conta conta : Opp.banco) {
             if (numero == conta.getNumero()) {
-               return conta;
-            } 
+                return conta;
+            }
         }
         return null;
     }
@@ -37,6 +33,7 @@ public class ContaController {
     public Conta depositar(Conta conta, double valor) {
         if (valor > 0) {
             conta.depositar(valor);
+            makeContaDAO().atualizaSaldo(conta);
         } else {
             JOptionPane.showMessageDialog(null, "VALOR INVÁLIDO PARA DEPOSITO!");
         }
@@ -46,6 +43,7 @@ public class ContaController {
     public Conta sacar(Conta conta, double valor) {
         if (valor <= conta.getSaldo() && valor > 0) {
             conta.sacar(valor);
+            makeContaDAO().atualizaSaldo(conta);
         } else {
             JOptionPane.showMessageDialog(null, "VALOR INVÁLIDO OU INSUFICIENTE PARA SAQUE!");
         }
@@ -56,6 +54,8 @@ public class ContaController {
 
         if (conta.getSaldo() >= valor && valor > 0) {
             conta.transferir(destinatario, valor);
+           makeContaDAO().atualizaSaldo(conta);
+           makeContaDAO().atualizaSaldo(destinatario);
         } else {
             JOptionPane.showMessageDialog(null, "Valor inválido.");
         }
@@ -63,4 +63,5 @@ public class ContaController {
         return conta;
 
     }
+
 }
