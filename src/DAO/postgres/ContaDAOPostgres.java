@@ -8,11 +8,18 @@ import Models.ContaSalario;
 import Models.Pessoa;
 import Models.PessoaFisica;
 import Models.PessoaJuridica;
+import Models.Transacao;
+import Util.GerenciadorConexao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ContaDAOPostgres implements ContaDAO {
 
@@ -95,11 +102,51 @@ public class ContaDAOPostgres implements ContaDAO {
         stm.executeUpdate();
        }catch(SQLException error) {
            System.err.println(error);
-       }
+       }   
+        
+    }
+    
+    public void addTransacoes(Transacao transacao, UUID id, Object contaId){
+        String sql = "INSERT INTO transacao (id, data, tipo, valor, conta_id, saldo_resultante) VALUES (?, ?, CAST(?, as tipo_transacao), ?, ?, ?";
+        
+        try (Connection connection = GerenciadorConexao.getConexao();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+                
+            preparedStatement.setObject(1,UUID.randomUUID());
+            preparedStatement.setDate(2,(java.sql.Date) (Date) transacao.getData());
+            preparedStatement.setString(3, transacao.getTipoTransacao());
+            preparedStatement.setDouble(4, transacao.getValor());
+            preparedStatement.setObject(5, contaId);
+            preparedStatement.setDouble(6, transacao.getSaldoResultante());
+            
+            preparedStatement.executeUpdate();
+            
+                } catch (SQLException e) {
+                    e.printStackTrace();
+        }
         
         
         
         
+    }
+
+    @Override
+    public List<Transacao> transacaoDasContas(UUID id) {
+        List<Transacao> transacoes = new ArrayList<>();
+        
+        String sql = "SELECT id, data, tipo, valor, saldo_resultante FROM transacao WHERE conta_id = ? order BY data";
+        
+        try(PreparedStatement stmt = this.conexao.prepareStatement(sql)){
+            stmt.setObject(1, contaId);
+            ResultSet rs =stmt.executeQuery();
+            
+            while(rs.next()){
+                Transacao transacao = new Transacao();
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ContaDAOPostgres.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }

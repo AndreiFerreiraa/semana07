@@ -6,11 +6,16 @@ import Models.ContaCorrente;
 import Models.ContaPoupanca;
 import Models.ContaSalario;
 import Models.Pessoa;
+import Models.Transacao;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 import javax.swing.JOptionPane;
 import opp.Opp;
 
 public class ContaController {
-
+    
+    
     public int criarConta(Pessoa titular, boolean corrente, boolean poupanca, boolean salario, String senha) {
         Conta conta = corrente ? new ContaCorrente(titular, senha) : poupanca ? new ContaPoupanca(titular, senha) : new ContaSalario(titular, senha);
         makeContaDAO().insereConta(conta);
@@ -63,5 +68,13 @@ public class ContaController {
         return conta;
 
     }
+    
+    public List<Transacao>transacaoDasContas(UUID conta){
+        return makeContaDAO().transacaoDasContas(conta);
+    }
+    
+    
+    
+    
 
 }

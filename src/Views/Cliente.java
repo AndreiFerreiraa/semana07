@@ -203,10 +203,7 @@ public class Cliente extends javax.swing.JFrame {
     }//GEN-LAST:event_cliSacarActionPerformed
 
     private void cliExtrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cliExtrActionPerformed
-        System.out.println("\tEXTRATO");
-        System.out.println("Nome: " + this.nomeTitular);
-        System.out.println("Número da conta: " + this.numeroConta);
-        System.out.printf("Saldo atual: %.2f\n",this.saldo);
+        
     }//GEN-LAST:event_cliExtrActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
