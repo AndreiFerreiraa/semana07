@@ -3,8 +3,10 @@ package Factory;
 
 import DAO.ContaDAO;
 import DAO.PessoaDAO;
+import DAO.TransacaoDAO;
 import DAO.postgres.ContaDAOPostgres;
 import DAO.postgres.PessoaDAOPostgres;
+import DAO.postgres.TransacaoDAOPostgres;
 import Util.GerenciadorConexao;
 import java.sql.Connection;
 
@@ -21,8 +23,12 @@ public class FactoryDAO {
     public static PessoaDAO makePessoaDAO(){
         Connection conexao = GerenciadorConexao.getConexao();
         PessoaDAOPostgres pessoaDao = new PessoaDAOPostgres(conexao);   
-        return pessoaDao;
-        
-        
+        return pessoaDao;      
+    }
+    
+    public static TransacaoDAO  makeTransacao(){
+        Connection conexao = GerenciadorConexao.getConexao();
+        TransacaoDAO transacaoDAO = new TransacaoDAOPostgres(conexao);   
+        return null;
     }
 }

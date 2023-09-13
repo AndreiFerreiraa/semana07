@@ -1,72 +1,60 @@
 
 package Models;
 
+import Enums.TipoTransacao;
 import java.util.Date;
 import java.util.UUID;
 
 
 public class Transacao {
-    public Transacao(UUID id, Date data, String tipo, double valor, double saldoResultante) {
+    private final UUID id;
+    private final Date data;
+    private final double valor;
+    private final UUID contaId;
+    private final TipoTransacao tipo;
+    
+   public Transacao(double valor, UUID contaId, TipoTransacao tipo) {
+        this.valor = valor;
+        this.contaId = contaId;
+        this.tipo = tipo;
+        this.id = UUID.randomUUID();
+        this.data = new Date();
+    }
+      public Transacao(UUID id, Date data, double valor, UUID contaId, TipoTransacao tipo) {
         this.id = id;
         this.data = data;
-        this.tipo = tipo;
         this.valor = valor;
-        this.saldoResultante = saldoResultante;
-    }
-    private UUID id;
-    private Date data;
-    private String tipo;
-    private double valor;
-    private double saldoResultante;
-
-    public Transacao() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-   
-
-   
+        this.contaId = contaId;
+        this.tipo = tipo;
     
-  
-    public UUID getId() {
-        return id;
-    }
+        
 
-    public void setId(UUID id) {
-        this.id = id;
+   }
+     public UUID getId() {
+        return id;
     }
 
     public Date getData() {
         return data;
     }
 
-    public void setData(Date data) {
-        this.data = data;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
     public double getValor() {
         return valor;
     }
 
-    public void setValor(double valor) {
-        this.valor = valor;
+    public UUID getContaId() {
+        return contaId;
     }
 
-    public double getSaldoResultante() {
-        return saldoResultante;
+    public TipoTransacao getTipo() {
+        return tipo;
     }
 
-    public void setSaldoResultante(double saldoResultante) {
-        this.saldoResultante = saldoResultante;
+    public Transacao() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+
 
     public String getTipoTransacao() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
